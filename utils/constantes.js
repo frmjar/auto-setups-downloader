@@ -1,8 +1,9 @@
-// const USER = 'frmanzanares@hotmail.com'
-// const PASS = '8#wGB*9DG03a'
-const PASS = 'rerfyf-tympyK-gugdy3'
-const USER = 'costura.lema-2g@icloud.com'
-const PATH = '/Users/frmjar/Documents/felix/desarrollos/pure-setups/'
+import dotenv from 'dotenv'
+dotenv.config({ path: '../.env' })
+
+const PASS = process.env.PASSWORD || 'PASSWORD-HERE'
+const USER = process.env.USERNAME || 'USER-HERE'
+const PATH = process.env.PATH_DOWNLOAD || 'PATH-TO-DOWNLOAD-HERE'
 
 export {
   USER,

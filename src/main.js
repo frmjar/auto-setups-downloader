@@ -1,8 +1,6 @@
 import axios from 'axios'
-import fs from 'fs'
 import { getTokens, headers, login, logout } from './credentials.js'
 import { descargarSetup } from './downloads.js'
-import { PATH } from '../utils/constantes.js'
 
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 
