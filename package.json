@@ -1,0 +1,36 @@
+{
+    "name": "pure-setups",
+    "version": "1.0.0",
+    "description": "Descarga automática de todos los setups de Pure",
+    "main": "src/main.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "todavia no"
+    },
+    "keywords": [
+        "pure",
+        "setups"
+    ],
+    "author": "Félix Redondo",
+    "license": "ISC",
+    "devDependencies": {
+        "standard": "^17.0.0"
+    },
+    "eslintConfig": {
+        "extends": "./node_modules/standard/eslintrc.json",
+        "rules": {
+            "prefer-promise-reject-errors": "off"
+        }
+    },
+    "dependencies": {
+        "axios": "^1.2.1",
+        "download": "^8.0.0",
+        "form-data": "^4.0.0",
+        "nodejs-file-downloader": "^4.10.3",
+        "qs": "^6.11.0"
+    }
+}
