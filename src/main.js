@@ -19,10 +19,11 @@ const getSetupsLinks = async (url, headers) => {
   }
 }
 
-const probando = async () => {
+const download = async () => {
   try {
     const { PHPSESSID, redirectToValue } = await getTokens()
     const WORDPRESSLogged = await login(PHPSESSID, redirectToValue)
+    // eslint-disable-next-line no-var
     var header = headers(PHPSESSID, WORDPRESSLogged)
 
     const setupsLinks = await getSetupsLinks(ROOTURL, header)
@@ -40,11 +41,12 @@ const probando = async () => {
 
     await logout(header)
   } catch (error) {
+    console.log(error)
     await logout(header)
   }
 }
 
-probando().then((res) => {
+download().then((res) => {
   console.log('Terminado con exito rotundo elemao')
 }
 ).catch((error) => {

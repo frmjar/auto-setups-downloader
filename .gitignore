@@ -3,3 +3,5 @@ target/
 node_modules/
 .git
 package-lock.json
+descargas/
+iracing/
