@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { getTokens, headers, login, logout } from './credentials.js'
 import { descargarSetup } from './downloads.js'
+import mapeo from '../utils/mapeo.json' assert { type: "json" }
 
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 
@@ -30,7 +31,7 @@ const download = async () => {
 
     await Promise.all(setupsLinks.map(async url => {
       const carpeta = url.split('=')[1]
-      return descargarSetup(url, carpeta, header).then((res) => {
+      return descargarSetup(url, carpeta, mapeo, header).then((res) => {
         console.log(`Descargada serie: ${carpeta}`)
         return Promise.resolve()
       }).catch((error) => {
@@ -39,7 +40,7 @@ const download = async () => {
       })
     }))
 
-    await logout(header)
+    return await logout(header)
   } catch (error) {
     console.log(error)
     await logout(header)

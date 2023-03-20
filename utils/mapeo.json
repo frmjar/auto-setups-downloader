@@ -1,0 +1,17 @@
+{
+    "advancedmx5": {
+        "coche": "mx5 mx52016",
+        "serie": "advanced"
+    },
+    "prodcarmx5": {
+        "coche": "mx5 mx52016",
+        "serie": "simlab"
+    },
+    "globalmx5": {
+        "coche": "mx5 mx52016"
+    },
+    "mercedesamggt4": {
+        "coche": "mercedes amg gt4",
+        "serie": ""
+    }
+}
