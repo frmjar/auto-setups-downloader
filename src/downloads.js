@@ -3,6 +3,7 @@ import fs from 'fs'
 import { PATH_DEFAULT, PATH_IRACING } from '../utils/constantes.js'
 
 const download = async (url, seriePath, headers) => {
+try {
   const response = await axios.get(url, {
     withCredentials: true,
     headers,
@@ -32,6 +33,11 @@ const download = async (url, seriePath, headers) => {
     })
   })
 }
+catch(err) {
+    console.log('ha petao')
+    return Promise.reject('ha petao')
+}
+}
 
 const descargarSetup = async (url, serie, mapeo, headers) => {
   try {
@@ -56,7 +62,7 @@ const descargarSetup = async (url, serie, mapeo, headers) => {
       seriePath = `${PATH_IRACING}${iracing.coche}/${serieIracing}/`
     }
 
-    return Promise.all(enlacesSetups.map(url => download(`https://${url}`, seriePath, headers)))
+    return Promise.allSettled(enlacesSetups.map(url => download(`https://${url}`, seriePath, headers)))
   } catch (error) {
     return Promise.reject(error)
   }
