@@ -52,4 +52,6 @@ download().then((res) => {
 }
 ).catch((error) => {
   console.log(error)
+}).finally(() => {
+    process.exit()
 })
