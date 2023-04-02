@@ -70,7 +70,7 @@ const logout = async (headers) => {
     return axios.get(logoutURL, {
       withCredentials: true,
       headers
-    }).then((res) => {
+    }).then(() => {
       console.log('Logout')
     })
   } catch (error) {

@@ -29,18 +29,18 @@ const download = async () => {
 
     const setupsLinks = await getSetupsLinks(ROOTURL, header)
 
-    await Promise.all(setupsLinks.map(async url => {
+    await Promise.allSettled(setupsLinks.map(async url => {
       const carpeta = url.split('=')[1]
       return descargarSetup(url, carpeta, mapeo, header).then((res) => {
-        console.log(`Descargada serie: ${carpeta}`)
+        console.info(`Descargada serie: ${carpeta}`)
         return Promise.resolve()
       }).catch((error) => {
-        console.log(`Error al descargar serie: ${carpeta}`)
+        console.error(`Error al descargar serie: ${carpeta}`)
         return Promise.reject(error)
       })
     }))
 
-    return await logout(header)
+    return logout(header)
   } catch (error) {
     console.log(error)
     await logout(header)
@@ -48,6 +48,7 @@ const download = async () => {
 }
 
 download().then((res) => {
+  console.log(res)
   console.log('Terminado con exito rotundo elemao')
 }
 ).catch((error) => {
