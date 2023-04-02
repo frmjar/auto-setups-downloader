@@ -10,18 +10,18 @@ const download = async (url, seriePath, headers) => {
       responseType: 'stream'
     })
 
+    const setupName = response.headers['content-disposition']?.split('"')[1]
+    const regexSubcarpeta = /(?:.*_)([A-Za-z0-9]+_[0-9]{2}[A-Za-z0-9]{2}(_W[0-9])?)/
+    let subcarpeta = setupName.match(regexSubcarpeta)[1]
+    const temporada = subcarpeta.split('_')[1]
+    subcarpeta = subcarpeta.split('_')[0] + '_' + subcarpeta.split('_')[2]
+
+    const setupPath = `${seriePath}${temporada}/${subcarpeta}`
+    if (!fs.existsSync(setupPath)) {
+      fs.mkdirSync(setupPath, { recursive: true })
+    }
+
     return new Promise((resolve, reject) => {
-      const setupName = response.headers['content-disposition']?.split('"')[1]
-      const regexSubcarpeta = /(?:.*_)([A-Za-z0-9]+_[0-9]{2}[A-Za-z0-9]{2}(_W[0-9])?)/
-      let subcarpeta = setupName.match(regexSubcarpeta)[1]
-      const temporada = subcarpeta.split('_')[1]
-      subcarpeta = subcarpeta.split('_')[0] + '_' + subcarpeta.split('_')[2]
-
-      const setupPath = `${seriePath}${temporada}/${subcarpeta}`
-      if (!fs.existsSync(setupPath)) {
-        fs.mkdirSync(setupPath, { recursive: true })
-      }
-
       const w = response.data.pipe(fs.createWriteStream(`${setupPath}/${setupName}`))
       w.on('finish', () => {
         console.info('Successfully downloaded file! - ', setupName)

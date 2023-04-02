@@ -42,17 +42,16 @@ const download = async () => {
 
     return logout(header)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     await logout(header)
   }
 }
 
-download().then((res) => {
-  console.log(res)
-  console.log('Terminado con exito rotundo elemao')
+download().then(() => {
+  console.log('Se han descargado todos los setups')
 }
 ).catch((error) => {
   console.log(error)
 }).finally(() => {
-    process.exit()
+  process.exit()
 })
