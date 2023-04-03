@@ -1,6 +1,6 @@
-import axios from 'axios'
-import fs from 'fs'
-import { PATH_DEFAULT, PATH_IRACING } from '../utils/constantes.js'
+const axios = require('axios')
+const fs = require('fs')
+const { PATH_DEFAULT, PATH_IRACING } = require('../utils/constantes.js')
 
 const download = async (url, seriePath, headers) => {
   try {
@@ -67,6 +67,6 @@ const descargarSetup = async (url, serie, mapeo, headers) => {
   }
 }
 
-export {
+module.exports = {
   descargarSetup
 }

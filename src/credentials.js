@@ -1,6 +1,6 @@
-import axios from 'axios'
-import FormData from 'form-data'
-import { USER, PASS } from '../utils/constantes.js'
+const axios = require('axios')
+const FormData = require('form-data')
+const { USER, PASS } = require('../utils/constantes.js')
 
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 const LOGINURL = 'https://puredrivingschool.com/wp-admin/admin-ajax.php'
@@ -78,7 +78,7 @@ const logout = async (headers) => {
   }
 }
 
-export {
+module.exports = {
   getTokens,
   headers,
   login,

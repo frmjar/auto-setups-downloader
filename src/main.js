@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { getTokens, headers, login, logout } from './credentials.js'
-import { descargarSetup } from './downloads.js'
-import mapeo from '../utils/mapeo.json' assert { type: "json" }
-
+const axios = require('axios')
+const { getTokens, headers, login, logout } = require('./credentials.js')
+const { descargarSetup } = require('./downloads.js')
+const mapeo = require('../utils/mapeo.json') 
+//assert { type: "json" }
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 
 const getSetupsLinks = async (url, headers) => {
@@ -47,11 +47,4 @@ const download = async () => {
   }
 }
 
-download().then(() => {
-  console.log('Se han descargado todos los setups')
-}
-).catch((error) => {
-  console.log(error)
-}).finally(() => {
-  process.exit()
-})
+
