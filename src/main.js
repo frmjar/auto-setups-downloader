@@ -1,8 +1,8 @@
 const axios = require('axios')
 const { getTokens, headers, login, logout } = require('./credentials.js')
 const { descargarSetup } = require('./downloads.js')
-const mapeo = require('../utils/mapeo.json') 
-//assert { type: "json" }
+const mapeo = require('../utils/mapeo.json')
+// assert { type: "json" }
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 
 const getSetupsLinks = async (url, headers) => {
@@ -20,7 +20,7 @@ const getSetupsLinks = async (url, headers) => {
   }
 }
 
-const download = async () => {
+const download = async (mainWindow) => {
   try {
     const { PHPSESSID, redirectToValue } = await getTokens()
     const WORDPRESSLogged = await login(PHPSESSID, redirectToValue)
@@ -33,9 +33,11 @@ const download = async () => {
       const carpeta = url.split('=')[1]
       return descargarSetup(url, carpeta, mapeo, header).then((res) => {
         console.info(`Descargada serie: ${carpeta}`)
+        mainWindow.webContents.send('download-setups-reply', `Descargada serie: ${carpeta}`)
         return Promise.resolve()
       }).catch((error) => {
         console.error(`Error al descargar serie: ${carpeta}`)
+        mainWindow.webContents.send('download-setups-reply', `Error al descargar serie: ${carpeta}`)
         return Promise.reject(error)
       })
     }))
@@ -47,4 +49,6 @@ const download = async () => {
   }
 }
 
-
+module.exports = {
+  download
+}
