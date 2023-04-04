@@ -2,6 +2,7 @@ const axios = require('axios')
 const { getTokens, headers, login, logout } = require('./credentials.js')
 const { descargarSetup } = require('./downloads.js')
 const mapeo = require('../utils/mapeo.json')
+const { ELEMAO } = require('../utils/constantes.js')
 
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 
@@ -28,6 +29,7 @@ const download = async (mainWindow) => {
     var header = headers(PHPSESSID, WORDPRESSLogged)
 
     const setupsLinks = await getSetupsLinks(ROOTURL, header)
+    mainWindow.webContents.send('download-setups-reply', ELEMAO)
 
     await Promise.allSettled(setupsLinks.map(async url => {
       const carpeta = url.split('=')[1]
@@ -45,6 +47,7 @@ const download = async (mainWindow) => {
   } catch (error) {
     console.error(error)
     await logout(header)
+    return Promise.reject(error)
   }
 }
 

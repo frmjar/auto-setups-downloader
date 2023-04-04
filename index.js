@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const { download } = require('./src/main.js')
 const path = require('path')
 
-function createWindow () {
+function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -13,20 +13,23 @@ function createWindow () {
 
   mainWindow.loadFile('index.html')
 
-  async function descargarSetups () {
+  async function descargarSetups() {
     try {
       await download(mainWindow)
       mainWindow.webContents.send('download-setups-reply', 'Descarga finalizada')
     } catch (error) {
       mainWindow.webContents.send('download-setups-reply', 'Error al descargar')
+      mainWindow.webContents.send('download-setups-reply', error)
     }
   }
 
   ipcMain.on('download-setups', descargarSetups)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
+
+if (require('electron-squirrel-startup')) app.quit()
 
 app.whenReady().then(() => {
   createWindow()

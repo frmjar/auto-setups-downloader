@@ -1,6 +1,6 @@
 const axios = require('axios')
 const fs = require('fs')
-const { PATH_DEFAULT, PATH_IRACING } = require('../utils/constantes.js')
+const { PATH_DEFAULT, PATH_IRACING, ELEMAO } = require('../utils/constantes.js')
 
 const download = async (url, seriePath, headers) => {
   try {
@@ -41,7 +41,7 @@ const descargarSetup = async (url, serie, mapeo, headers, mainWindow) => {
       withCredentials: true,
       headers
     })
-
+    mainWindow.webContents.send('download-setups-reply', ELEMAO)
     const enlaces = response.data.matchAll(/<a href='https:\/\/(.*)' {2}class='avia-button (.*) Setup<\/span>/g)
     const enlacesSetups = [...enlaces].map((enlace) => enlace[1]).filter((enlace) => !enlace.includes('choose-package'))
     let seriePath = `${PATH_DEFAULT}${serie}/`

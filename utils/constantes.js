@@ -1,5 +1,6 @@
+const path = require('path')
 const dotenv = require('dotenv')
-dotenv.config()
+dotenv.config({ path: path.resolve(__dirname, '../resources/.env') })
 
 const PASS = process.env.PASSWORD_PURE || 'PASSWORD-HERE'
 const USER = process.env.USERNAME_PURE || 'USER-HERE'
@@ -10,5 +11,6 @@ module.exports = {
   USER,
   PASS,
   PATH_DEFAULT,
-  PATH_IRACING
+  PATH_IRACING,
+  ELEMAO: path.resolve(__dirname, '../resources/.env')
 }
