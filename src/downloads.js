@@ -24,21 +24,18 @@ const download = async (url, seriePath, headers) => {
     return new Promise((resolve, reject) => {
       const w = response.data.pipe(fs.createWriteStream(`${setupPath}/${setupName}`))
       w.on('finish', () => {
-        console.info('Successfully downloaded file! - ', setupName)
-        return resolve()
+        return resolve(`Successfully downloaded file! - ${setupName}`)
       })
       w.on('error', (err) => {
-        console.error('Error downloading file!')
-        return reject(err)
+        return reject('Error downloading file!', err)
       })
     })
   } catch (err) {
-    console.error(`Error al descargar setup: ${url}`)
-    return Promise.reject(`Error al descargar setup: ${url}`)
+    return Promise.reject(`Error al descargar setup: ${url}`, err)
   }
 }
 
-const descargarSetup = async (url, serie, mapeo, headers) => {
+const descargarSetup = async (url, serie, mapeo, headers, mainWindow) => {
   try {
     const response = await axios.get(url, {
       withCredentials: true,
@@ -61,7 +58,18 @@ const descargarSetup = async (url, serie, mapeo, headers) => {
       seriePath = `${PATH_IRACING}${iracing.coche}/${serieIracing}/`
     }
 
-    return Promise.allSettled(enlacesSetups.map(url => download(`https://${url}`, seriePath, headers)))
+    return Promise.allSettled(enlacesSetups.map(url =>
+      download(`https://${url}`, seriePath, headers, mainWindow)
+        .then((value) => {
+          mainWindow.webContents.send('download-setups-reply', value)
+          return Promise.resolve()
+        })
+        .catch((value, error) => {
+          console.error(value)
+          mainWindow.webContents.send('download-setups-reply', value)
+          return Promise.reject(error)
+        })
+    ))
   } catch (error) {
     return Promise.reject(error)
   }

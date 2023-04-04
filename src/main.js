@@ -2,7 +2,7 @@ const axios = require('axios')
 const { getTokens, headers, login, logout } = require('./credentials.js')
 const { descargarSetup } = require('./downloads.js')
 const mapeo = require('../utils/mapeo.json')
-// assert { type: "json" }
+
 const ROOTURL = 'https://puredrivingschool.com/membersite/'
 
 const getSetupsLinks = async (url, headers) => {
@@ -31,8 +31,7 @@ const download = async (mainWindow) => {
 
     await Promise.allSettled(setupsLinks.map(async url => {
       const carpeta = url.split('=')[1]
-      return descargarSetup(url, carpeta, mapeo, header).then((res) => {
-        console.info(`Descargada serie: ${carpeta}`)
+      return descargarSetup(url, carpeta, mapeo, header, mainWindow).then(() => {
         mainWindow.webContents.send('download-setups-reply', `Descargada serie: ${carpeta}`)
         return Promise.resolve()
       }).catch((error) => {

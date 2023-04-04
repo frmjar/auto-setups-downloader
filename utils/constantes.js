@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 dotenv.config()
 
 const PASS = process.env.PASSWORD_PURE || 'PASSWORD-HERE'

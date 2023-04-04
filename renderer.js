@@ -12,4 +12,5 @@ window.electronAPI.downloadSetupsReply((event, message) => {
   $span.className = 'log'
   $span.textContent = message
   $console.appendChild($span)
+  $console.scrollTop = $console.scrollHeight
 })
