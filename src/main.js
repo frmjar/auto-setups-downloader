@@ -1,7 +1,7 @@
 const axios = require('axios')
 const { getTokens, headers, login, logout } = require('./credentials.js')
 const { descargarSetup } = require('./downloads.js')
-const mapeo = require('../utils/mapeo.json')
+const mapeo = require('../resources/mapeo.json')
 const { ELEMAO } = require('../utils/constantes.js')
 
 const ROOTURL = 'https://puredrivingschool.com/membersite/'

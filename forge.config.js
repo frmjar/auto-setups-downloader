@@ -12,7 +12,7 @@ module.exports = {
       '.git/*'
     ],
     extraResource: [
-      './resources/.env'
+      './resources/'
     ]
   },
   rebuildConfig: {},
@@ -26,7 +26,7 @@ module.exports = {
         ui: {
           chooseDirectory: true
         },
-        icon: 'resources/icon.jpg'
+        icon: 'resources/icon.ico'
       }
     },
     {
